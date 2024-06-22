@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="bg">Add Blog</title>
+    <link rel="stylesheet" href="/blog.css">
+</head>
+<body>
+    <h1>Add Your Blog</h1>
+    <form action="/blog" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Enter Your Title" required>
+        <textarea name="description" placeholder="Enter Description" required></textarea>
+        <label for="image-upload" class="custom-file-upload">
+            <i class="fas fa-cloud-upload-alt"></i> Choose Image
+        </label>
+        <input type="file" id="image-upload" name="image" accept="image/*" onchange="updateFileName(this)">
+        <div id="selected-image"></div>
+        <br><br>
+        <button type="submit">Add Blog</button>
+    </form>
+</body>
+</html>

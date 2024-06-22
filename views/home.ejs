@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Website</title>
+    <link rel="stylesheet" href="/home.css">
+    <script src="https://kit.fontawesome.com/0e7422ed1e.js" crossorigin="anonymous"></script>
+</head>
+<form action="/search" method="GET" class="search-form">
+    <input type="text" name="query" placeholder="Enter search query" class="search-input">
+    <button type="submit" class="search-button">Search</button>
+</form>
+<body>
+    <ul class="navigation">
+        <li class="profile"><a href="/profile"><i class="fa-solid fa-user" id="profile-img"></i> Profile</a></li>
+        <li>
+            <form action="/" method="get">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </li>
+    </ul>
+    <h1>Welcome to the Blogging!!!!!</h1>
+    <div class="newblog">
+        <form action="/blog" method="get">
+            <button type="submit">New Blog</button>
+        </form>
+    </div>
+    <div class="blogs">
+        <% blogs.forEach(blog => { %>
+            <div class="blog">
+                <h2><%= blog.title %></h2>
+                <p><%= blog.description %></p>
+                <% if (blog.image && blog.image.data) { %>
+                    <img src="data:<%= blog.image.contentType %>;base64,<%= blog.image.data %>" alt="Blog Image" class="blog-image">
+                <% } %>
+                <p style="font-size: xx-small;" class="date-time"><%= moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p>
+            </div>
+        <% }) %>
+    </div>
+    
+    <% if (success) { %>
+        <script>
+            alert('Blog uploaded successfully!');
+        </script>
+    <% } %>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            var modal = document.getElementById("imageModal");
+        
+
+            var modalImg = document.getElementById("modalImage");
+        
+            var images = document.getElementsByClassName("blog-image");
+            for (var i = 0; i < images.length; i++) {
+                images[i].onclick = function() {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            }
+
+            var span = document.getElementsByClassName("close")[0];
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+        });
+        </script>
+</body>
+</html>
